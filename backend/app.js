@@ -1,3 +1,15 @@
+// Add DB connection check
+const { getDb } = require('./config/db');
+
+// Check DB connection at startup
+getDb().raw('SELECT 1')
+  .then(() => {
+    console.log('Database connected successfully');
+  })
+  .catch((err) => {
+    console.error('Database connection failed:', err.message);
+  });
+
 const express = require('express');
 const cors = require('cors');
 

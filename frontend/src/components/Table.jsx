@@ -25,7 +25,16 @@ export function Table({ columns = [], rows = [], emptyMessage = 'No records foun
           </thead>
           <tbody className="divide-y divide-mist-100 bg-white">
             {rows.map((row, index) => (
-              <tr key={row.id || index} className="align-top">
+              <tr
+                key={row.id || index}
+                className={[
+                  'align-top',
+                  row.onClick ? 'cursor-pointer transition hover:bg-mist-50' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ')}
+                onClick={row.onClick}
+              >
                 {columns.map((column) => (
                   <td key={column.key} className="px-4 py-4 text-sm text-mist-700">
                     {column.render ? column.render(row) : row[column.key]}

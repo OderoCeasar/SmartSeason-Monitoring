@@ -1,8 +1,65 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --color-soil-50: #f8f5ef;
+  --color-soil-100: #efe4d2;
+  --color-soil-200: #dfc8a1;
+  --color-soil-300: #cea86f;
+  --color-soil-400: #bb8748;
+  --color-soil-500: #9d6a33;
+  --color-soil-600: #7c5228;
+  --color-soil-700: #5f3f20;
+  --color-soil-800: #412c18;
+  --color-soil-900: #271a0e;
+
+  --color-leaf-50: #eef8f1;
+  --color-leaf-100: #d6efdd;
+  --color-leaf-200: #addfba;
+  --color-leaf-300: #7bc892;
+  --color-leaf-400: #4aa86b;
+  --color-leaf-500: #2f8751;
+  --color-leaf-600: #23683e;
+  --color-leaf-700: #1b4e2f;
+  --color-leaf-800: #123520;
+  --color-leaf-900: #0a1f12;
+
+  --color-sun-50: #fff8e7;
+  --color-sun-100: #ffefc2;
+  --color-sun-200: #ffe191;
+  --color-sun-300: #ffd05d;
+  --color-sun-400: #f2b936;
+  --color-sun-500: #d79a1d;
+  --color-sun-600: #a97717;
+  --color-sun-700: #7c5713;
+  --color-sun-800: #52390d;
+  --color-sun-900: #2d1f07;
+
+  --color-mist-50: #f6f8fb;
+  --color-mist-100: #e9edf3;
+  --color-mist-200: #d5dce6;
+  --color-mist-300: #b1bdcc;
+  --color-mist-400: #8a99ac;
+  --color-mist-500: #667489;
+  --color-mist-600: #4c5667;
+  --color-mist-700: #373e4a;
+  --color-mist-800: #232831;
+  --color-mist-900: #11151b;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Manrope", sans-serif;
+
+  --radius-4xl: 2rem;
+
+  --shadow-panel: 0 20px 60px rgba(17, 21, 27, 0.08);
+  --shadow-soft: 0 10px 30px rgba(47, 135, 81, 0.12);
+}
+
+@utility bg-field-glow {
+  background-image:
+    radial-gradient(circle at top left, rgba(123, 200, 146, 0.22), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(255, 209, 98, 0.2), transparent 30%);
+}
 
 @layer base {
   html {

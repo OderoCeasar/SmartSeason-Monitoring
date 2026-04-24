@@ -20,7 +20,7 @@
     "knex",
     "jwt"
   ],
-  "author": "",
+  "author": "ceasar odero",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",

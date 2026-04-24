@@ -122,26 +122,14 @@ const listFields = asyncHandler(async (req, res) => {
 
   applyFieldFilters(baseQuery, req.query);
 
-  const rows = await baseQuery
-    .clone()
-    .orderBy('f.created_at', 'desc')
-    .limit(pagination.limit)
-    .offset(pagination.offset);
-
+  const rows = await baseQuery.clone().orderBy('f.created_at', 'desc');
   const filteredItems = rows.map(normalizeField);
   const statusFilter = req.query.status;
-  const items = statusFilter
+  const statusFilteredItems = statusFilter
     ? filteredItems.filter((field) => field.status.toLowerCase() === String(statusFilter).toLowerCase())
     : filteredItems;
-
-  const totalRows = await baseQuery
-    .clone()
-    .clearSelect()
-    .clearOrder()
-    .countDistinct({ total: 'f.id' })
-    .first();
-
-  const total = Number(totalRows?.total || 0);
+  const total = statusFilteredItems.length;
+  const items = statusFilteredItems.slice(pagination.offset, pagination.offset + pagination.limit);
 
   res.status(200).json({
     items,

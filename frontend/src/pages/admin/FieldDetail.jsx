@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
@@ -35,21 +35,36 @@ export default function AdminFieldDetail() {
   const [assignOpen, setAssignOpen] = useState(false);
 
   const editForm = useForm({
-    values: field
-      ? {
-          name: field.name || '',
-          crop: field.crop || '',
-          planting_date: field.planting_date || '',
-          expected_harvest_date: field.expected_harvest_date || '',
-        }
-      : undefined,
+    defaultValues: {
+      name: '',
+      crop: '',
+      planting_date: '',
+      expected_harvest_date: '',
+    },
   });
 
   const assignForm = useForm({
     defaultValues: {
-      agent_id: field?.assigned_agent?.id || '',
+      agent_id: '',
     },
   });
+
+  useEffect(() => {
+    if (!field) {
+      return;
+    }
+
+    editForm.reset({
+      name: field.name || '',
+      crop: field.crop || '',
+      planting_date: field.planting_date || '',
+      expected_harvest_date: field.expected_harvest_date || '',
+    });
+
+    assignForm.reset({
+      agent_id: String(field.assigned_agent?.id || ''),
+    });
+  }, [assignForm, editForm, field]);
 
   const columns = [
     {

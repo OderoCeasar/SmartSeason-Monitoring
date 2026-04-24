@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import {
   assignField,
@@ -10,6 +10,8 @@ import {
   updateField,
 } from '../api/fields';
 import { createFieldUpdate, getFieldUpdates } from '../api/updates';
+
+const defaultAgentParams = { role: 'field_agent' };
 
 const initialListState = {
   items: [],
@@ -127,7 +129,14 @@ export function useFieldDetail(fieldId, initialUpdateParams = { page: 1, limit: 
 
         setField(fieldResponse.item || null);
         setUpdates(updatesResponse.items || []);
-        setPagination(updatesResponse.pagination || pagination);
+        setPagination(
+          updatesResponse.pagination || {
+            page: initialUpdateParams.page || 1,
+            limit: initialUpdateParams.limit || 10,
+            total: 0,
+            pages: 1,
+          }
+        );
       } catch (requestError) {
         if (isMounted) {
           setError(requestError);
@@ -190,7 +199,8 @@ export function useFieldActions() {
   };
 }
 
-export function useAgents(params = { role: 'field_agent' }) {
+export function useAgents(params = defaultAgentParams) {
+  const requestParams = useMemo(() => params, [JSON.stringify(params)]);
   const [agents, setAgents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -203,7 +213,7 @@ export function useAgents(params = { role: 'field_agent' }) {
       setError(null);
 
       try {
-        const response = await getUsers(params);
+        const response = await getUsers(requestParams);
 
         if (!isMounted) {
           return;
@@ -226,7 +236,7 @@ export function useAgents(params = { role: 'field_agent' }) {
     return () => {
       isMounted = false;
     };
-  }, [params]);
+  }, [requestParams]);
 
   return {
     agents,

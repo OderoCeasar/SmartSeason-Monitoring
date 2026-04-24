@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { Badge } from '../../components/Badge';
@@ -24,7 +23,6 @@ export default function AgentFieldDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { field, updates, loading } = useFieldDetail(id);
-  const [showAddUpdate, setShowAddUpdate] = useState(false);
 
   if (loading) {
     return <TableSkeleton rows={6} />;
@@ -52,7 +50,7 @@ export default function AgentFieldDetail() {
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Button onClick={() => setShowAddUpdate(true)}>Add Update</Button>
+            <Button onClick={() => navigate(`/agent/fields/${id}/update`)}>Add Update</Button>
             <Button variant="secondary" onClick={() => navigate(`/agent/fields/${id}/update`)}>
               Open Update Form
             </Button>
@@ -120,11 +118,6 @@ export default function AgentFieldDetail() {
         )}
       </Card>
 
-      {showAddUpdate ? (
-        <div className="hidden">
-          {navigate(`/agent/fields/${id}/update`)}
-        </div>
-      ) : null}
     </div>
   );
 }
