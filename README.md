@@ -1,4 +1,5 @@
 # SmartSeason Field Monitoring System
+live deployment:  http://3.250.213.224:5173/admin/dashboard
 
 ## 1. Overview
 
